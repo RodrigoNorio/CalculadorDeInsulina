@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">APPInsulina</string>
+  <string name="title">Título</string>
+  <string name="str_cars">Carros</string>
+  <string name="str_favourites">Favoritos</string>
+</resources>
