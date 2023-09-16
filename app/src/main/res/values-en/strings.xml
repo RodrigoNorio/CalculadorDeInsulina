@@ -4,4 +4,8 @@
   <string name="title">Title</string>
   <string name="str_cars">Cars</string>
   <string name="str_favourites">Favourites</string>
+  <string name="img_desc_pizza">Pizza</string>
+  <string name="str_proportion">Proportion :</string>
+  <string name="str_calories">Calories :</string>
+  <string name="str_carbohydrate">Carbohydrate :</string>
 </resources>
