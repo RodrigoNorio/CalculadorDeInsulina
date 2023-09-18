@@ -5,7 +5,9 @@
   <string name="str_cars">Carros</string>
   <string name="str_favourites">Favoritos</string>
   <string name="img_desc_pizza">Pizza</string>
-  <string name="str_proportion">Proporção :</string>
-  <string name="str_calories">Calorias :</string>
-  <string name="str_carbohydrate">Carboidratos :</string>
+  <string name="str_proportion">Proporção</string>
+  <string name="str_calories">Calorias</string>
+  <string name="str_carbohydrate">Carboidratos</string>
+  <string name="str_weight">Peso</string>
+  <string name="btn_calculate_insulina">Calcular</string>
 </resources>

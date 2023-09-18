@@ -49,26 +49,88 @@
 
   <TextView
     android:id="@+id/txt_proportion"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:text="@string/str_proportion"
     android:layout_marginTop="16dp"
+    android:layout_marginStart="55dp"
     app:layout_constraintTop_toBottomOf="@+id/img_pizza"
     app:layout_constraintStart_toStartOf="parent" />
 
   <TextView
     android:id="@+id/txt_calories"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:text="@string/str_calories"
+    android:layout_marginStart="55dp"
     app:layout_constraintTop_toBottomOf="@+id/txt_proportion"
     app:layout_constraintStart_toStartOf="parent" />
 
   <TextView
     android:id="@+id/txt_carbohydrate"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:text="@string/str_carbohydrate"
+    android:layout_marginStart="55dp"
     app:layout_constraintTop_toBottomOf="@+id/txt_calories"
     app:layout_constraintStart_toStartOf="parent"/>
+
+  <TextView
+    android:id="@+id/txt_value_proportion"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="15"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="36dp"
+    app:layout_constraintStart_toEndOf="@+id/txt_proportion"
+    app:layout_constraintTop_toBottomOf="@+id/img_pizza"/>
+
+  <TextView
+    android:id="@+id/txt_value_calories"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="16"
+    android:layout_marginStart="36dp"
+    app:layout_constraintStart_toEndOf="@+id/txt_calories"
+    app:layout_constraintTop_toBottomOf="@+id/txt_value_proportion"/>
+
+  <TextView
+    android:id="@+id/txt_value_carbohydrate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="17"
+    android:layout_marginStart="36dp"
+    app:layout_constraintStart_toEndOf="@+id/txt_carbohydrate"
+    app:layout_constraintTop_toBottomOf="@+id/txt_value_calories"/>
+  
+  <EditText
+    android:id="@+id/input_grams"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_carbohydrate"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/txt_carbohydrate"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+
+  <EditText
+    android:id="@+id/input_weight"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_weight"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/input_grams"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <Button
+    android:id="@+id/btn_calculate_insulina"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/btn_calculate_insulina"
+    app:layout_constraintTop_toBottomOf="@+id/input_weight"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
 </androidx.constraintlayout.widget.ConstraintLayout>
