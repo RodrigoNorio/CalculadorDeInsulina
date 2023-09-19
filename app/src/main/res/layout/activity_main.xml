@@ -22,7 +22,7 @@
     android:id="@+id/tab_cars"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/str_cars"
+    android:text="@string/str_foods"
     android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -79,7 +79,7 @@
     android:id="@+id/txt_value_proportion"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="15"
+    android:text="1 slice"
     android:layout_marginTop="16dp"
     android:layout_marginStart="36dp"
     app:layout_constraintStart_toEndOf="@+id/txt_proportion"
@@ -89,7 +89,7 @@
     android:id="@+id/txt_value_calories"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="16"
+    android:text="215 kcal"
     android:layout_marginStart="36dp"
     app:layout_constraintStart_toEndOf="@+id/txt_calories"
     app:layout_constraintTop_toBottomOf="@+id/txt_value_proportion"/>
@@ -98,7 +98,7 @@
     android:id="@+id/txt_value_carbohydrate"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="17"
+    android:text="21.13g"
     android:layout_marginStart="36dp"
     app:layout_constraintStart_toEndOf="@+id/txt_carbohydrate"
     app:layout_constraintTop_toBottomOf="@+id/txt_value_calories"/>
@@ -125,12 +125,58 @@
     app:layout_constraintStart_toStartOf="@+id/input_grams"
     app:layout_constraintEnd_toEndOf="@+id/input_grams" />
 
-  <Button
-    android:id="@+id/btn_calculate_insulina"
+  <EditText
+    android:id="@+id/input_before_glucose"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:text="@string/btn_calculate_insulina"
+    android:hint="@string/str_before_glucose"
+    android:maxLength="10"
+    android:inputType="number"
     app:layout_constraintTop_toBottomOf="@+id/input_weight"
     app:layout_constraintStart_toStartOf="@+id/input_grams"
     app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <EditText
+    android:id="@+id/input_after_glucose"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_after_glucose"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/input_before_glucose"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <Button
+    android:id="@+id/btn_calculate_insulin"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/btn_calculate_insulin"
+    app:layout_constraintTop_toBottomOf="@+id/input_after_glucose"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <TextView
+    android:id="@+id/txt_correction_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/btn_calculate_insulin"/>
+
+  <TextView
+    android:id="@+id/txt_meal_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txt_correction_dose_result"/>
+
+  <TextView
+    android:id="@+id/txt_total_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txt_meal_dose_result"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

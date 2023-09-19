@@ -1,12 +1,17 @@
 <resources>
   <string name="app_name">APPInsulina</string>
   <string name="title">Title</string>
-  <string name="str_cars">Cars</string>
+  <string name="str_foods">Foods</string>
   <string name="str_favourites">Favourites</string>
   <string name="img_desc_pizza">Pizza</string>
   <string name="str_proportion">Proportion</string>
   <string name="str_calories">Calories</string>
   <string name="str_carbohydrate">Carbohydrate</string>
   <string name="str_weight">Weight</string>
-  <string name="btn_calculate_insulina">Calculate</string>
+  <string name="btn_calculate_insulin">Calculate</string>
+  <string name="str_before_glucose">Glucose before meal</string>
+  <string name="str_after_glucose">Desired glucose after meal</string>
+  <string name="str_correction_dose">Correction dose: %1$s</string>
+  <string name="str_meal_dose">Meal dose: %1$s</string>
+  <string name="str_total_dose">Total dose: %1$s</string>
 </resources>
