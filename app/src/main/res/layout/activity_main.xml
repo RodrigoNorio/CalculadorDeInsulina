@@ -6,7 +6,7 @@
   android:layout_height="match_parent"
   android:paddingLeft="16dp"
   android:paddingRight="16dp"
-  tools:context=".MainActivity">
+  tools:context=".ui.MainActivity">
 
   <TextView
     android:id="@+id/title"
@@ -19,7 +19,7 @@
     app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
-    android:id="@+id/tab_cars"
+    android:id="@+id/tab_foods"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/str_foods"
@@ -34,149 +34,19 @@
     android:text="@string/str_favourites"
     android:textStyle="bold"
     app:layout_constraintTop_toBottomOf="@+id/title"
-    app:layout_constraintStart_toEndOf="@+id/tab_cars"
+    app:layout_constraintStart_toEndOf="@+id/tab_foods"
     android:layout_marginStart="16dp"/>
 
-  <ImageView
-    android:id="@+id/img_pizza"
-    android:layout_width="wrap_content"
-    android:layout_height="150dp"
-    android:src="@drawable/img_pizza"
-    app:layout_constraintTop_toBottomOf="@+id/tab_cars"
-    app:layout_constraintStart_toStartOf="parent"
-    android:layout_marginTop="16dp"
-    android:contentDescription="@string/img_desc_pizza" />
-
-  <TextView
-    android:id="@+id/txt_proportion"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:text="@string/str_proportion"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="55dp"
-    app:layout_constraintTop_toBottomOf="@+id/img_pizza"
-    app:layout_constraintStart_toStartOf="parent" />
-
-  <TextView
-    android:id="@+id/txt_calories"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:text="@string/str_calories"
-    android:layout_marginStart="55dp"
-    app:layout_constraintTop_toBottomOf="@+id/txt_proportion"
-    app:layout_constraintStart_toStartOf="parent" />
-
-  <TextView
-    android:id="@+id/txt_carbohydrate"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:text="@string/str_carbohydrate"
-    android:layout_marginStart="55dp"
-    app:layout_constraintTop_toBottomOf="@+id/txt_calories"
-    app:layout_constraintStart_toStartOf="parent"/>
-
-  <TextView
-    android:id="@+id/txt_value_proportion"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="1 slice"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="36dp"
-    app:layout_constraintStart_toEndOf="@+id/txt_proportion"
-    app:layout_constraintTop_toBottomOf="@+id/img_pizza"/>
-
-  <TextView
-    android:id="@+id/txt_value_calories"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="215 kcal"
-    android:layout_marginStart="36dp"
-    app:layout_constraintStart_toEndOf="@+id/txt_calories"
-    app:layout_constraintTop_toBottomOf="@+id/txt_value_proportion"/>
-
-  <TextView
-    android:id="@+id/txt_value_carbohydrate"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="21.13g"
-    android:layout_marginStart="36dp"
-    app:layout_constraintStart_toEndOf="@+id/txt_carbohydrate"
-    app:layout_constraintTop_toBottomOf="@+id/txt_value_calories"/>
-  
-  <EditText
-    android:id="@+id/input_grams"
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/list_foods"
     android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:hint="@string/str_carbohydrate"
-    android:maxLength="10"
-    android:inputType="number"
-    app:layout_constraintTop_toBottomOf="@+id/txt_carbohydrate"
+    android:layout_height="0dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
-
-  <EditText
-    android:id="@+id/input_weight"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:hint="@string/str_weight"
-    android:maxLength="10"
-    android:inputType="number"
-    app:layout_constraintTop_toBottomOf="@+id/input_grams"
-    app:layout_constraintStart_toStartOf="@+id/input_grams"
-    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
-
-  <EditText
-    android:id="@+id/input_before_glucose"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:hint="@string/str_before_glucose"
-    android:maxLength="10"
-    android:inputType="number"
-    app:layout_constraintTop_toBottomOf="@+id/input_weight"
-    app:layout_constraintStart_toStartOf="@+id/input_grams"
-    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
-
-  <EditText
-    android:id="@+id/input_after_glucose"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:hint="@string/str_after_glucose"
-    android:maxLength="10"
-    android:inputType="number"
-    app:layout_constraintTop_toBottomOf="@+id/input_before_glucose"
-    app:layout_constraintStart_toStartOf="@+id/input_grams"
-    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
-
-  <Button
-    android:id="@+id/btn_calculate_insulin"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="@string/btn_calculate_insulin"
-    app:layout_constraintTop_toBottomOf="@+id/input_after_glucose"
-    app:layout_constraintStart_toStartOf="@+id/input_grams"
-    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
-
-  <TextView
-    android:id="@+id/txt_correction_dose_result"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="visible"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/btn_calculate_insulin"/>
-
-  <TextView
-    android:id="@+id/txt_meal_dose_result"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="visible"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_correction_dose_result"/>
-
-  <TextView
-    android:id="@+id/txt_total_dose_result"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="visible"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_meal_dose_result"/>
+    app:layout_constraintTop_toBottomOf="@id/tab_foods"
+    app:layout_constraintVertical_bias="0.0"
+    tools:listitem="@layout/food_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,15 @@
-package com.example.appinsulina
+package com.example.appinsulina.ui
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.appinsulina.R
 
-class MainActivity : AppCompatActivity() {
+class CalculateInsulinActivity: AppCompatActivity() {
   private lateinit var carbohydrate: EditText
   private lateinit var weight: EditText
   private lateinit var glucoseBefore: EditText
@@ -17,12 +18,15 @@ class MainActivity : AppCompatActivity() {
   private lateinit var correctionResult: TextView
   private lateinit var mealResult: TextView
   private lateinit var totalResult: TextView
+  private lateinit var btnBackArrow: ImageView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    setContentView(R.layout.activity_calculate_insulin)
     setupView()
     setupListeners()
   }
+
   fun setupView() {
     carbohydrate = findViewById(R.id.input_grams)
     weight = findViewById(R.id.input_weight)
@@ -32,12 +36,19 @@ class MainActivity : AppCompatActivity() {
     correctionResult = findViewById(R.id.txt_correction_dose_result)
     mealResult = findViewById(R.id.txt_meal_dose_result)
     totalResult = findViewById(R.id.txt_total_dose_result)
+    btnBackArrow = findViewById(R.id.back_arrow)
   }
+
   fun setupListeners() {
-    btnCalculate.setOnClickListener{
+    btnCalculate.setOnClickListener {
       calculateInsulin()
     }
+
+    btnBackArrow.setOnClickListener {
+      finish()
+    }
   }
+
   fun calculateInsulin() {
     val inputCarbohydrate = carbohydrate.text.toString().toFloat()
     val inputWeight = weight.text.toString().toFloat()
@@ -59,6 +70,7 @@ class MainActivity : AppCompatActivity() {
       inputWeight > 108.00 -> carbohydrateProportion = 6.00
       else -> Toast.makeText(applicationContext, "invalido", Toast.LENGTH_SHORT).show()
     }
+
     val correctionDose: Double = (inputPreGlucose - inputPostGlucose) / 50.00
     val mealDose: Double = inputCarbohydrate / carbohydrateProportion
     val totalDose: Double = correctionDose + mealDose

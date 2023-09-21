@@ -14,4 +14,6 @@
   <string name="str_correction_dose">Correction dose: %1$s</string>
   <string name="str_meal_dose">Meal dose: %1$s</string>
   <string name="str_total_dose">Total dose: %1$s</string>
+  <string name="title_calculate_insulin">Calculate Insulin</string>
+  <string name="img_back_arrow">Back arrow</string>
 </resources>

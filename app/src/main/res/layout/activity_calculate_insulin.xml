@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:paddingLeft="16dp"
+  android:paddingRight="16dp">
+
+  <ImageView
+    android:id="@+id/back_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/back_arrow"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:contentDescription="@string/img_back_arrow" />
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/title_calculate_insulin"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/back_arrow" />
+
+  <EditText
+    android:id="@+id/input_grams"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_carbohydrate"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/title"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <EditText
+    android:id="@+id/input_weight"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_weight"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/input_grams"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <EditText
+    android:id="@+id/input_before_glucose"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_before_glucose"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/input_weight"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <EditText
+    android:id="@+id/input_after_glucose"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/str_after_glucose"
+    android:maxLength="10"
+    android:inputType="number"
+    app:layout_constraintTop_toBottomOf="@+id/input_before_glucose"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <Button
+    android:id="@+id/btn_calculate_insulin"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/btn_calculate_insulin"
+    app:layout_constraintTop_toBottomOf="@+id/input_after_glucose"
+    app:layout_constraintStart_toStartOf="@+id/input_grams"
+    app:layout_constraintEnd_toEndOf="@+id/input_grams" />
+
+  <TextView
+    android:id="@+id/txt_correction_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/btn_calculate_insulin"/>
+
+  <TextView
+    android:id="@+id/txt_meal_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txt_correction_dose_result"/>
+
+  <TextView
+    android:id="@+id/txt_total_dose_result"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txt_meal_dose_result"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
