@@ -50,10 +50,10 @@ class CalculateInsulinActivity: AppCompatActivity() {
   }
 
   fun calculateInsulin() {
-    val inputCarbohydrate = carbohydrate.text.toString().toFloat()
-    val inputWeight = weight.text.toString().toFloat()
-    val inputPreGlucose = glucoseBefore.text.toString().toFloat()
-    val inputPostGlucose = glucoseAfter.text.toString().toFloat()
+    val inputCarbohydrate = carbohydrate.text.toString().toFloatOrNull() ?: 0.0f
+    val inputWeight = weight.text.toString().toFloatOrNull() ?: 0.0f
+    val inputPreGlucose = glucoseBefore.text.toString().toFloatOrNull() ?: 0.0f
+    val inputPostGlucose = glucoseAfter.text.toString().toFloatOrNull() ?: 0.0f
     var carbohydrateProportion: Double = 0.00
 
     when {

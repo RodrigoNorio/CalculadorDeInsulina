@@ -17,36 +17,31 @@
     android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
-
-  <TextView
-    android:id="@+id/tab_foods"
-    android:layout_width="wrap_content"
+  
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/tab_layout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/str_foods"
-    android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/title" />
+    app:layout_constraintTop_toBottomOf="@+id/title">
+    <com.google.android.material.tabs.TabItem
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/str_foods" />
 
-  <TextView
-    android:id="@+id/tab_favourites"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/str_favourites"
-    android:textStyle="bold"
-    app:layout_constraintTop_toBottomOf="@+id/title"
-    app:layout_constraintStart_toEndOf="@+id/tab_foods"
-    android:layout_marginStart="16dp"/>
+    <com.google.android.material.tabs.TabItem
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/str_favorites" />
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/list_foods"
+  </com.google.android.material.tabs.TabLayout>
+  
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/food_tab"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintTop_toBottomOf="@+id/tab_layout"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/tab_foods"
-    app:layout_constraintVertical_bias="0.0"
-    tools:listitem="@layout/food_item" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

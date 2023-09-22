@@ -6,11 +6,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
 import com.example.appinsulina.domain.Food
+import com.example.appinsulina.ui.FoodFragment
 import com.example.appinsulina.ui.MainActivity
 
 class FoodAdapter(
   private val foods: List<Food>,
-  private val listener: MainActivity
+  private val listener: FoodFragment
 ) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
   interface OnItemClickListener {
@@ -40,7 +41,7 @@ class FoodAdapter(
     val textCarbohydrate: TextView = view.findViewById(R.id.txt_value_carbohydrate)
     private val cardView: CardView = itemView.findViewById(R.id.card_view)
 
-    fun bind(food: Food, listener: MainActivity) {
+    fun bind(food: Food, listener: FoodFragment) {
       cardView.setOnClickListener {
         listener.onItemClick(food)
       }
