@@ -12,7 +12,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
@@ -28,6 +31,8 @@ class FoodFragment: Fragment() {
   lateinit var listOfFoods: RecyclerView
   lateinit var btnCalculate: FloatingActionButton
   lateinit var progressBar: ProgressBar
+  lateinit var imgNoConnection: ImageView
+  lateinit var txtNoConnection: TextView
 
   var foodsArray: ArrayList<Food> = ArrayList()
 
@@ -42,19 +47,28 @@ class FoodFragment: Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupView(view)
-    checkNetwork(context)
-    callService()
     setupListener()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    if(checkNetwork(context)) {
+      callService()
+    } else{
+      emptyState()
+    }
   }
 
   fun setupView(view: View) {
     listOfFoods = view.findViewById(R.id.list_foods)
     btnCalculate = view.findViewById(R.id.btn_calculate_insulin)
     progressBar = view.findViewById(R.id.pb_loader)
+    imgNoConnection = view.findViewById(R.id.img_no_connection)
+    txtNoConnection = view.findViewById(R.id.txt_no_connection)
   }
 
   fun setupList() {
-    listOfFoods.visibility = View.VISIBLE
+    listOfFoods.isVisible = true
     val adapter = FoodAdapter(foodsArray, this)
     listOfFoods.adapter = adapter
   }
@@ -72,6 +86,13 @@ class FoodFragment: Fragment() {
   fun callService() {
     val urlBase = "https://rodrigonorio.github.io/api-DIO/foods.json"
     getFoodInfo().execute(urlBase)
+  }
+
+  fun emptyState() {
+    progressBar.isVisible = false
+    listOfFoods.isVisible = false
+    imgNoConnection.isVisible = true
+    txtNoConnection.isVisible = true
   }
 
   fun checkNetwork(context: Context?): Boolean {
@@ -96,7 +117,7 @@ class FoodFragment: Fragment() {
   inner class getFoodInfo: AsyncTask<String, String, String>() {
     override fun onPreExecute() {
       super.onPreExecute()
-      progressBar.visibility = View.VISIBLE
+      progressBar.isVisible = true
     }
     override fun doInBackground(vararg url: String?): String {
       var urlConnection: HttpURLConnection? = null
@@ -145,7 +166,9 @@ class FoodFragment: Fragment() {
           )
           foodsArray.add(foodModel)
         }
-        progressBar.visibility = View.GONE
+        progressBar.isVisible = false
+        imgNoConnection.isVisible = false
+        txtNoConnection.isVisible = false
         setupList()
       } catch (ex: Exception) {
         Log.e("Erro", ex.message.toString())
