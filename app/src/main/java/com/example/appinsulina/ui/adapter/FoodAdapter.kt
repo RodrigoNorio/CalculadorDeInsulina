@@ -11,6 +11,7 @@ import com.example.appinsulina.ui.FoodFragment
 import com.squareup.picasso.Picasso
 
 
+
 class FoodAdapter(
   private val foods: List<Food>,
   private val listener: FoodFragment
@@ -42,6 +43,7 @@ class FoodAdapter(
     val textCalories: TextView = view.findViewById(R.id.txt_value_calories)
     val textCarbohydrate: TextView = view.findViewById(R.id.txt_value_carbohydrate)
     val imageView: ImageView = view.findViewById(R.id.img_food)
+
     private val cardView: CardView = itemView.findViewById(R.id.card_view)
 
     fun bind(food: Food, listener: FoodFragment) {

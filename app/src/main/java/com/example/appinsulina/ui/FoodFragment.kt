@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
@@ -28,6 +29,7 @@ import java.net.URL
 class FoodFragment: Fragment() {
   lateinit var listOfFoods: RecyclerView
   lateinit var btnCalculate: FloatingActionButton
+  lateinit var progressBar: ProgressBar
 
   var foodsArray: ArrayList<Food> = ArrayList()
 
@@ -41,17 +43,19 @@ class FoodFragment: Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    callService()
     setupView(view)
+    callService()
     setupListener()
   }
 
   fun setupView(view: View) {
     listOfFoods = view.findViewById(R.id.list_foods)
     btnCalculate = view.findViewById(R.id.btn_calculate_insulin)
+    progressBar = view.findViewById(R.id.pb_loader)
   }
 
   fun setupList() {
+    listOfFoods.visibility = View.VISIBLE
     val adapter = FoodAdapter(foodsArray, this)
     listOfFoods.adapter = adapter
   }
@@ -74,6 +78,7 @@ class FoodFragment: Fragment() {
   inner class getFoodInfo: AsyncTask<String, String, String>() {
     override fun onPreExecute() {
       super.onPreExecute()
+      progressBar.visibility = View.VISIBLE
     }
     override fun doInBackground(vararg url: String?): String {
       var urlConnection: HttpURLConnection? = null
@@ -82,8 +87,18 @@ class FoodFragment: Fragment() {
         urlConnection = urlBase.openConnection() as HttpURLConnection
         urlConnection.connectTimeout = 60000
         urlConnection.readTimeout = 60000
-        var response = urlConnection.inputStream.bufferedReader().use {it.readText()}
-        publishProgress(response)
+        urlConnection.setRequestProperty(
+          "Accept",
+          "application/json"
+        )
+        val responseCode = urlConnection.responseCode
+
+        if(responseCode == HttpURLConnection.HTTP_OK) {
+          var response = urlConnection.inputStream.bufferedReader().use {it.readText()}
+          publishProgress(response)
+        } else {
+          Log.e("Erro", "Service shutdown")
+        }
       } catch (ex: Exception) {
         Log.e("Erro", "Error on connection")
       } finally {
@@ -112,6 +127,7 @@ class FoodFragment: Fragment() {
           )
           foodsArray.add(foodModel)
         }
+        progressBar.visibility = View.GONE
         setupList()
       } catch (ex: Exception) {
         Log.e("Erro", ex.message.toString())
