@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.JsonToken
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,15 +16,10 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
-import com.example.appinsulina.data.FoodFactory
 import com.example.appinsulina.domain.Food
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONArray
-import org.json.JSONObject
 import org.json.JSONTokener
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
@@ -118,7 +112,7 @@ class FoodFragment: Fragment() {
         val responseCode = urlConnection.responseCode
 
         if(responseCode == HttpURLConnection.HTTP_OK) {
-          var response = urlConnection.inputStream.bufferedReader().use {it.readText()}
+          val response = urlConnection.inputStream.bufferedReader().use {it.readText()}
           publishProgress(response)
         } else {
           Log.e("Erro", "Service shutdown")
