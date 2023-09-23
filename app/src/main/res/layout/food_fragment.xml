@@ -17,4 +17,14 @@
     app:layout_constraintEnd_toEndOf="parent"
     tools:listitem="@layout/food_item" />
 
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/btn_calculate_insulin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_calculate"
+    android:layout_marginBottom="24dp"
+    android:layout_marginEnd="24dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

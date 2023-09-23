@@ -1,13 +1,15 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
 import com.example.appinsulina.domain.Food
 import com.example.appinsulina.ui.FoodFragment
-import com.example.appinsulina.ui.MainActivity
+import com.squareup.picasso.Picasso
+
 
 class FoodAdapter(
   private val foods: List<Food>,
@@ -39,12 +41,14 @@ class FoodAdapter(
     val textProportion: TextView = view.findViewById(R.id.txt_value_proportion)
     val textCalories: TextView = view.findViewById(R.id.txt_value_calories)
     val textCarbohydrate: TextView = view.findViewById(R.id.txt_value_carbohydrate)
+    val imageView: ImageView = view.findViewById(R.id.img_food)
     private val cardView: CardView = itemView.findViewById(R.id.card_view)
 
     fun bind(food: Food, listener: FoodFragment) {
       cardView.setOnClickListener {
         listener.onItemClick(food)
       }
+      Picasso.get().load(food.urlImg).into(imageView)
     }
   }
 }
