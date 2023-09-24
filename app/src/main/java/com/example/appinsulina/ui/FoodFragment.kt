@@ -1,31 +1,28 @@
 package com.example.appinsulina.ui
 
 import FoodAdapter
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
+import com.example.appinsulina.data.FoodApi
 import com.example.appinsulina.domain.Food
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.json.JSONArray
-import org.json.JSONTokener
-import java.lang.Exception
-import java.net.HttpURLConnection
-import java.net.URL
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class FoodFragment: Fragment() {
   lateinit var listOfFoods: RecyclerView
@@ -33,8 +30,7 @@ class FoodFragment: Fragment() {
   lateinit var progressBar: ProgressBar
   lateinit var imgNoConnection: ImageView
   lateinit var txtNoConnection: TextView
-
-  var foodsArray: ArrayList<Food> = ArrayList()
+  lateinit var foodApi: FoodApi
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -46,17 +42,14 @@ class FoodFragment: Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupRetrofit()
     setupView(view)
     setupListener()
   }
 
   override fun onResume() {
     super.onResume()
-    if(checkNetwork(context)) {
-      callService()
-    } else{
-      emptyState()
-    }
+    getAllFoods()
   }
 
   fun setupView(view: View) {
@@ -67,9 +60,9 @@ class FoodFragment: Fragment() {
     txtNoConnection = view.findViewById(R.id.txt_no_connection)
   }
 
-  fun setupList() {
+  fun setupList(list: List<Food>) {
     listOfFoods.isVisible = true
-    val adapter = FoodAdapter(foodsArray, this)
+    val adapter = FoodAdapter(list, this)
     listOfFoods.adapter = adapter
   }
 
@@ -83,11 +76,6 @@ class FoodFragment: Fragment() {
     }
   }
 
-  fun callService() {
-    val urlBase = "https://rodrigonorio.github.io/api-DIO/foods.json"
-    getFoodInfo().execute(urlBase)
-  }
-
   fun emptyState() {
     progressBar.isVisible = false
     listOfFoods.isVisible = false
@@ -95,84 +83,33 @@ class FoodFragment: Fragment() {
     txtNoConnection.isVisible = true
   }
 
-  fun checkNetwork(context: Context?): Boolean {
-    val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      val network = connectivityManager.activeNetwork ?: return false
-      val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+  fun setupRetrofit() {
+    val retrofit = Retrofit.Builder()
+      .baseUrl("https://rodrigonorio.github.io/api-DIO/")
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
 
-      return when {
-        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-        else -> false
-      }
-    } else {
-      @Suppress("Deprecated")
-      val networkInfo = connectivityManager.activeNetworkInfo ?: return false
-      @Suppress("Deprecated")
-      return networkInfo.isConnected
-    }
+    foodApi = retrofit.create(FoodApi::class.java)
   }
 
-  inner class getFoodInfo: AsyncTask<String, String, String>() {
-    override fun onPreExecute() {
-      super.onPreExecute()
-      progressBar.isVisible = true
-    }
-    override fun doInBackground(vararg url: String?): String {
-      var urlConnection: HttpURLConnection? = null
-      try {
-        val urlBase = URL(url[0])
-        urlConnection = urlBase.openConnection() as HttpURLConnection
-        urlConnection.connectTimeout = 60000
-        urlConnection.readTimeout = 60000
-        urlConnection.setRequestProperty(
-          "Accept",
-          "application/json"
-        )
-        val responseCode = urlConnection.responseCode
-
-        if(responseCode == HttpURLConnection.HTTP_OK) {
-          val response = urlConnection.inputStream.bufferedReader().use {it.readText()}
-          publishProgress(response)
+  fun getAllFoods() {
+    foodApi.getAll().enqueue(object: Callback<List<Food>>{
+      override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
+        if(response.isSuccessful) {
+          progressBar.isVisible = false
+          imgNoConnection.isVisible = false
+          txtNoConnection.isVisible = false
+          response.body()?.let {
+            setupList(it)
+          }
         } else {
-          Log.e("Erro", "Service shutdown")
+          Toast.makeText(context, R.string.txt_no_connection, Toast.LENGTH_SHORT).show()
         }
-      } catch (ex: Exception) {
-        Log.e("Erro", "Error on connection")
-      } finally {
-        urlConnection?.disconnect()
       }
-      return ""
-    }
-    override fun onProgressUpdate(vararg values: String?) {
-      try {
-        val jsonArray = JSONTokener(values[0]).nextValue() as JSONArray
-        for(i in 0 until jsonArray.length()) {
-          val id = jsonArray.getJSONObject(i).getString("id")
-          val name = jsonArray.getJSONObject(i).getString("name")
-          val proportion = jsonArray.getJSONObject(i).getString("proportion")
-          val calories = jsonArray.getJSONObject(i).getString("calories")
-          val carbohydrate = jsonArray.getJSONObject(i).getString("carbohydrate")
-          val urlImg = jsonArray.getJSONObject(i).getString("urlImg")
 
-          val foodModel = Food(
-            id = id.toInt(),
-            name = name,
-            proportion = proportion,
-            calories = calories,
-            carbohydrate = carbohydrate,
-            urlImg = urlImg
-          )
-          foodsArray.add(foodModel)
-        }
-        progressBar.isVisible = false
-        imgNoConnection.isVisible = false
-        txtNoConnection.isVisible = false
-        setupList()
-      } catch (ex: Exception) {
-        Log.e("Erro", ex.message.toString())
+      override fun onFailure(call: Call<List<Food>>, t: Throwable) {
+        emptyState()
       }
-    }
+    })
   }
 }
