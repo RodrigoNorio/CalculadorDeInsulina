@@ -17,4 +17,5 @@
   <string name="title_calculate_insulin">Calculate Insulin</string>
   <string name="img_back_arrow">Back arrow</string>
   <string name="txt_no_connection">No connection</string>
+  <string name="saved_calc_insulin">saved_calc</string>
 </resources>

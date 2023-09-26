@@ -18,4 +18,5 @@
   <string name="title_calculate_insulin">Calcular Insulina</string>
   <string name="img_back_arrow">Voltar</string>
   <string name="txt_no_connection">Sem conexão</string>
+  <string name="saved_calc_insulin">saved_calc</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.appinsulina.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -54,28 +55,38 @@ class CalculateInsulinActivity: AppCompatActivity() {
     val inputWeight = weight.text.toString().toFloatOrNull() ?: 0.0f
     val inputPreGlucose = glucoseBefore.text.toString().toFloatOrNull() ?: 0.0f
     val inputPostGlucose = glucoseAfter.text.toString().toFloatOrNull() ?: 0.0f
-    var carbohydrateProportion: Double = 0.00
+    var carbohydrateProportion: Float = 1.0f
 
     when {
-      inputWeight in 45.00..49.00 -> carbohydrateProportion = 16.00
-      inputWeight in 49.50..58.00 -> carbohydrateProportion = 15.00
-      inputWeight in 58.50..62.50 -> carbohydrateProportion = 14.00
-      inputWeight in 63.00..67.00 -> carbohydrateProportion = 13.00
-      inputWeight in 67.50..76.00 -> carbohydrateProportion = 12.00
-      inputWeight in 76.50..80.50 -> carbohydrateProportion = 11.00
-      inputWeight in 81.00..85.50 -> carbohydrateProportion = 10.00
-      inputWeight in 85.50..89.50 -> carbohydrateProportion = 9.00
-      inputWeight in 90.00..98.50 -> carbohydrateProportion = 8.00
-      inputWeight in 99.00..107.50 -> carbohydrateProportion = 7.00
-      inputWeight > 108.00 -> carbohydrateProportion = 6.00
+      inputWeight in 45.00..49.00 -> carbohydrateProportion = 16.00f
+      inputWeight in 49.50..58.00 -> carbohydrateProportion = 15.00f
+      inputWeight in 58.50..62.50 -> carbohydrateProportion = 14.00f
+      inputWeight in 63.00..67.00 -> carbohydrateProportion = 13.00f
+      inputWeight in 67.50..76.00 -> carbohydrateProportion = 12.00f
+      inputWeight in 76.50..80.50 -> carbohydrateProportion = 11.00f
+      inputWeight in 81.00..85.50 -> carbohydrateProportion = 10.00f
+      inputWeight in 85.50..89.50 -> carbohydrateProportion = 9.00f
+      inputWeight in 90.00..98.50 -> carbohydrateProportion = 8.00f
+      inputWeight in 99.00..107.50 -> carbohydrateProportion = 7.00f
+      inputWeight > 108.00 -> carbohydrateProportion = 6.00f
       else -> Toast.makeText(applicationContext, "invalido", Toast.LENGTH_SHORT).show()
     }
 
-    val correctionDose: Double = (inputPreGlucose - inputPostGlucose) / 50.00
-    val mealDose: Double = inputCarbohydrate / carbohydrateProportion
-    val totalDose: Double = correctionDose + mealDose
+    val correctionDose: Float = (inputPreGlucose - inputPostGlucose) / 50.00f
+    val mealDose: Float = inputCarbohydrate / carbohydrateProportion
+    val totalDose: Float = correctionDose + mealDose
     correctionResult.text = getString(R.string.str_correction_dose, "$correctionDose")
     mealResult.text = getString(R.string.str_meal_dose, "$mealDose")
     totalResult.text = getString(R.string.str_total_dose, "$totalDose")
+    saveSharedPreference(totalDose)
   }
+
+  fun saveSharedPreference(result: Float) {
+    val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+    with (sharedPref.edit()) {
+      putFloat(getString(R.string.saved_calc_insulin), result)
+      apply()
+    }
+  }
+
 }
