@@ -7,4 +7,5 @@ data class Food(
   val calories: String,
   val carbohydrate: String,
   val urlImg: String,
+  var isFavorite: Boolean = false,
 )

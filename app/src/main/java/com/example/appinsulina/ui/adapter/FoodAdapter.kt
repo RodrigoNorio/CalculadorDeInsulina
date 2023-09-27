@@ -18,6 +18,8 @@ class FoodAdapter(
 
   var onItemClickListener: (Food) -> Unit = {}
 
+  var onStarClickListener: (Food) -> Unit = {}
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.food_item, parent, false)
     return ViewHolder(view)
@@ -34,6 +36,10 @@ class FoodAdapter(
     holder.cardView.setOnClickListener {
       onItemClickListener(foods[position])
     }
+    holder.imgStar.setOnClickListener {
+      onStarClickListener(foods[position])
+      holder.setupFavorite(foods[position], holder)
+    }
   }
 
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,6 +54,16 @@ class FoodAdapter(
 
     fun loadFoodImg(food: Food) {
       Picasso.get().load(food.urlImg).into(imgFood)
+    }
+
+    fun setupFavorite(food: Food, holder: ViewHolder) {
+      food.isFavorite = !food.isFavorite
+      if(food.isFavorite) {
+        holder.imgStar.setImageResource(R.drawable.ic_star_selected)
+      }
+      else {
+        holder.imgStar.setImageResource(R.drawable.ic_star)
+      }
     }
   }
 }
