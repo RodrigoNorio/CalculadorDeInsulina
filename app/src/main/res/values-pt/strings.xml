@@ -19,4 +19,5 @@
   <string name="img_back_arrow">Voltar</string>
   <string name="txt_no_connection">Sem conexão</string>
   <string name="saved_calc_insulin">saved_calc</string>
+  <string name="img_desc_star">Favorites</string>
 </resources>

@@ -13,13 +13,10 @@ import com.squareup.picasso.Picasso
 
 
 class FoodAdapter(
-  private val foods: List<Food>,
-  private val listener: FoodFragment
+  private val foods: List<Food>
 ) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
-  interface OnItemClickListener {
-    fun onItemClick(food: Food)
-  }
+  var onItemClickListener: (Food) -> Unit = {}
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.food_item, parent, false)
@@ -29,12 +26,14 @@ class FoodAdapter(
   override fun getItemCount(): Int = foods.size
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    holder.loadFoodImg(foods[position])
     holder.txtName.text = foods[position].name
     holder.textProportion.text = foods[position].proportion
     holder.textCalories.text = foods[position].calories
     holder.textCarbohydrate.text = foods[position].carbohydrate
-    val food = foods[position]
-    holder.bind(food, listener)
+    holder.cardView.setOnClickListener {
+      onItemClickListener(foods[position])
+    }
   }
 
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,15 +41,13 @@ class FoodAdapter(
     val textProportion: TextView = view.findViewById(R.id.txt_value_proportion)
     val textCalories: TextView = view.findViewById(R.id.txt_value_calories)
     val textCarbohydrate: TextView = view.findViewById(R.id.txt_value_carbohydrate)
-    val imageView: ImageView = view.findViewById(R.id.img_food)
+    val imgFood: ImageView = view.findViewById(R.id.img_food)
+    val imgStar: ImageView = view.findViewById(R.id.img_star_favorite)
 
-    private val cardView: CardView = itemView.findViewById(R.id.card_view)
+    val cardView: CardView = itemView.findViewById(R.id.card_view)
 
-    fun bind(food: Food, listener: FoodFragment) {
-      cardView.setOnClickListener {
-        listener.onItemClick(food)
-      }
-      Picasso.get().load(food.urlImg).into(imageView)
+    fun loadFoodImg(food: Food) {
+      Picasso.get().load(food.urlImg).into(imgFood)
     }
   }
 }

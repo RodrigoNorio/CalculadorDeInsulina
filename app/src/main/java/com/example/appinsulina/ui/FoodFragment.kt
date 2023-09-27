@@ -62,12 +62,11 @@ class FoodFragment: Fragment() {
 
   fun setupList(list: List<Food>) {
     listOfFoods.isVisible = true
-    val adapter = FoodAdapter(list, this)
+    val adapter = FoodAdapter(list)
     listOfFoods.adapter = adapter
-  }
-
-  fun onItemClick(food: Food) {
-    startActivity(Intent(context, CalculateInsulinActivity::class.java))
+    adapter.onItemClickListener = {
+      startActivity(Intent(context, CalculateInsulinActivity::class.java))
+    }
   }
 
   fun setupListener() {

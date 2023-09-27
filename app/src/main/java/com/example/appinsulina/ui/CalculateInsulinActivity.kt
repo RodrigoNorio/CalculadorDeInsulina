@@ -26,6 +26,7 @@ class CalculateInsulinActivity: AppCompatActivity() {
     setContentView(R.layout.activity_calculate_insulin)
     setupView()
     setupListeners()
+    setupCachedResult()
   }
 
   fun setupView() {
@@ -87,6 +88,15 @@ class CalculateInsulinActivity: AppCompatActivity() {
       putFloat(getString(R.string.saved_calc_insulin), result)
       apply()
     }
+  }
+  fun getSharedPred(): Float {
+    val sharedPref = getPreferences(Context.MODE_PRIVATE)
+    return sharedPref.getFloat(getString(R.string.saved_calc_insulin), 0.0f)
+  }
+
+  private fun setupCachedResult() {
+    val calcValue = getSharedPred()
+    totalResult.text = calcValue.toString()
   }
 
 }
