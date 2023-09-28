@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appinsulina.R
 import com.example.appinsulina.data.FoodApi
+import com.example.appinsulina.data.local.FoodRepository
 import com.example.appinsulina.domain.Food
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -66,6 +67,9 @@ class FoodFragment: Fragment() {
     listOfFoods.adapter = adapter
     adapter.onItemClickListener = {
       startActivity(Intent(context, CalculateInsulinActivity::class.java))
+    }
+    adapter.onStarClickListener = {food ->
+      val isSaved = FoodRepository(requireContext()).saveOnDB(food)
     }
   }
 
