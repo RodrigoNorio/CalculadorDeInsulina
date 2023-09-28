@@ -98,8 +98,8 @@ class FoodRepository(private val context: Context) {
   }
 
   fun saveIfNotExist(food: Food) {
-    val food = findViewByID(food.id)
-    if(food.id == ID_NO_FOOD_EXIST) {
+    val foodItem = findViewByID(food.id)
+    if(foodItem.id == ID_NO_FOOD_EXIST) {
       saveOnDB(food)
     }
   }
