@@ -7,6 +7,7 @@ object FoodContract {
   object FoodEntry: BaseColumns {
     const val TABLE_NAME = "food"
     const val COLUMN_ID = "id"
+    const val COLUMN_FOOD_ID = "id"
     const val COLUMN_NAME = "name"
     const val COLUMN_PROPORTION = "proportion"
     const val COLUMN_CALORIES = "calories"
@@ -17,6 +18,7 @@ object FoodContract {
   const val TABLE_FOOD =
     "CREATE TABLE ${FoodEntry.TABLE_NAME} (" +
       "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+      "${FoodEntry.COLUMN_FOOD_ID} TEXT," +
       "${FoodEntry.COLUMN_NAME} TEXT," +
       "${FoodEntry.COLUMN_PROPORTION} TEXT," +
       "${FoodEntry.COLUMN_CALORIES} TEXT," +

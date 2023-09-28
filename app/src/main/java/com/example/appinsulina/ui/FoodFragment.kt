@@ -69,7 +69,8 @@ class FoodFragment: Fragment() {
       startActivity(Intent(context, CalculateInsulinActivity::class.java))
     }
     adapter.onStarClickListener = {food ->
-      val isSaved = FoodRepository(requireContext()).saveOnDB(food)
+      val isSaved = FoodRepository(requireContext()).saveIfNotExist(food)
+      val getFood = FoodRepository(requireContext()).findViewByID(food.id)
     }
   }
 
