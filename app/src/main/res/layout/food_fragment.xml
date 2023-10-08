@@ -19,15 +19,6 @@
     tools:listitem="@layout/food_item"
     tools:visibility="visible"/>
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btn_calculate_insulin"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_calculate"
-    android:layout_marginBottom="24dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"/>
-
   <ProgressBar
     android:id="@+id/pb_loader"
     android:layout_width="wrap_content"

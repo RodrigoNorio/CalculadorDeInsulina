@@ -27,7 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class FoodFragment: Fragment() {
   lateinit var listOfFoods: RecyclerView
-  lateinit var btnCalculate: FloatingActionButton
   lateinit var progressBar: ProgressBar
   lateinit var imgNoConnection: ImageView
   lateinit var txtNoConnection: TextView
@@ -45,7 +44,6 @@ class FoodFragment: Fragment() {
     super.onViewCreated(view, savedInstanceState)
     setupRetrofit()
     setupView(view)
-    setupListener()
   }
 
   override fun onResume() {
@@ -55,7 +53,6 @@ class FoodFragment: Fragment() {
 
   fun setupView(view: View) {
     listOfFoods = view.findViewById(R.id.list_foods)
-    btnCalculate = view.findViewById(R.id.btn_calculate_insulin)
     progressBar = view.findViewById(R.id.pb_loader)
     imgNoConnection = view.findViewById(R.id.img_no_connection)
     txtNoConnection = view.findViewById(R.id.txt_no_connection)
@@ -71,12 +68,6 @@ class FoodFragment: Fragment() {
     adapter.onStarClickListener = {food ->
       val isSaved = FoodRepository(requireContext()).saveIfNotExist(food)
       val getFood = FoodRepository(requireContext()).findViewByID(food.id)
-    }
-  }
-
-  fun setupListener() {
-    btnCalculate.setOnClickListener {
-      startActivity(Intent(context, CalculateInsulinActivity::class.java))
     }
   }
 
